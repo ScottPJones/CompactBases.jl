@@ -63,7 +63,7 @@ derop!(A, B::FEDVROrRestricted, n::Integer) =
     set_elements!(difffun(B,n), A, B)
 
 ContinuumArrays.MemoryLayout(::Type{<:BasisOrRestricted{<:FEDVR}}) = ContinuumArrays.BasisLayout()
-ContinuumArrays.MemoryLayout(::Type{<:AdjointBasisOrRestricted{<:FEDVR}}) = ContinuumArrays.AdjointBasisLayout()
+ContinuumArrays.MemoryLayout(::Type{<:AdjointBasisOrRestricted{<:FEDVR}}) = ContinuumArrays.AdjointBasisLayout{ContinuumArrays.BasisLayout}()
 
 @materialize function *(Ac::AdjointBasisOrRestricted{<:FEDVR},
                         D::Derivative,

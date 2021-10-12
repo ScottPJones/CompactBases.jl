@@ -346,7 +346,7 @@ IntervalSets.leftendpoint(B::ImplicitFiniteDifferences) = B.r[1] - local_step(B,
 IntervalSets.rightendpoint(B::ImplicitFiniteDifferences) = B.r[end] + local_step(B,length(B.r))
 
 ContinuumArrays.MemoryLayout(::Type{<:BasisOrRestricted{<:ImplicitFiniteDifferences}}) = ContinuumArrays.BasisLayout()
-ContinuumArrays.MemoryLayout(::Type{<:AdjointBasisOrRestricted{<:ImplicitFiniteDifferences}}) = ContinuumArrays.AdjointBasisLayout()
+ContinuumArrays.MemoryLayout(::Type{<:AdjointBasisOrRestricted{<:ImplicitFiniteDifferences}}) = ContinuumArrays.AdjointBasisLayout{ContinuumArrays.BasisLayout}()
 
 show(io::IO, B::ImplicitFiniteDifferences{T}) where {T} =
     write(io, "Implicit finite differences basis {$T} on $(axes(B,1).domain) with $(size(B,2)) points spaced by Δx = $(step(B))")
