@@ -146,7 +146,7 @@ function getindex(t::AbstractKnotSet{k,ml,mr}, i::Integer) where {k,ml,mr}
     elseif i < ml + ni + mr
         last(t)
     else
-        throw(BoundsError("Trying to access knot set of length $(length(t)) at index $i"))
+        throw(BoundsError(t, i))
     end
 end
 lastindex(t::AbstractKnotSet) = length(t)
