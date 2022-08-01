@@ -150,7 +150,7 @@ end
     oo = first.(orders)
 
     println("Derivative convergence rates:")
-    pretty_table([oo slopes], ["Order", "pg", "ph", "ph′"])
+    pretty_table([oo slopes], header=["Order", "pg", "ph", "ph′"])
     println()
 
     plt = lineplot(oo, slopes[:,1], name="pg", xlabel="FE-DVR order", ylabel="Error slope")

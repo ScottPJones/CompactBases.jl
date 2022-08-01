@@ -68,8 +68,8 @@ function error_slopes(hs, ϵ, names, verbosity=0)
     end
 
     if verbosity > 0
-        pretty_table([hs ϵ], vcat("h", ["$(name) [$(slope)]"
-                                        for (name,slope) in zip(names,slopes)]))
+        pretty_table([hs ϵ], header=vcat("h", ["$(name) [$(slope)]"
+                                               for (name,slope) in zip(names,slopes)]))
         plt = lineplot(loghs, logϵ[:,1], name=names[1], xlabel="log10(h)", ylabel="log10(error)")
         for j = 2:n
             lineplot!(plt, loghs, logϵ[:,j], name=names[j])
