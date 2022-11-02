@@ -44,4 +44,5 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/JuliaApproximation/CompactBases.jl",
+    push_preview = true,
 )
