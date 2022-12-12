@@ -1,7 +1,7 @@
 name = "CompactBases"
 uuid = "2c0377a8-7469-4ebd-be0f-82e501f20078"
 authors = ["Stefanos Carlström <stefanos.carlstrom@gmail.com>"]
-version = "0.3.11"
+version = "0.3.12"
 
 [deps]
 BandedMatrices = "aae01518-5342-5314-be14-df237901396f"
@@ -19,17 +19,22 @@ RecipesBase = "3cdcf5f2-1ef4-517c-9805-6587b60abb01"
 SparseArrays = "2f01184e-e22b-5df5-ae63-d93ebab69eaf"
 
 [compat]
+ArnoldiMethod = "0.2"
 BandedMatrices = "0.16,0.17"
 BlockBandedMatrices = "0.11"
-ContinuumArrays = "0.10, 0.11"
+ContinuumArrays = "0.10, 0.11, 0.12"
 FastGaussQuadrature = "0.4, 0.5"
 FillArrays = "0.12,0.13"
 Formatting = "0.4"
 IntervalSets = "0.5.1,0.6,0.7"
 LazyArrays = "0.22"
 OffsetArrays = "1.1"
+PrettyTables = "2"
+ProgressMeter = "1.5"
 QuasiArrays = "0.9"
 RecipesBase = "1.0"
+RollingFunctions = "0.6, 0.7"
+UnicodePlots = "3"
 julia = "1.6"
 
 [extras]
