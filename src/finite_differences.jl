@@ -11,6 +11,11 @@ size(B::AbstractFiniteDifferences) = (ℵ₁, length(locs(B)))
 
 distribution(B::AbstractFiniteDifferences) = distribution(locs(B))
 
+orthogonality(::Uniform, ::AbstractFiniteDifferences) = Orthogonal()
+orthogonality(::NonUniform, ::AbstractFiniteDifferences) = Orthonormal()
+orthogonality(B::AbstractFiniteDifferences) = orthogonality(distribution(B), B)
+orthogonality(B::RestrictedFiniteDifferences) = orthogonality(parent(B))
+
 # step is only well-defined for uniform grids
 step(::Uniform, B::AbstractFiniteDifferences) = step(locs(B))
 # All-the-same, we define step for non-uniform grids to make the mass

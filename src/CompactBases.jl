@@ -50,6 +50,7 @@ using RecipesBase
 vandermonde(B::Basis) = B[locs(B),:]
 
 include("distributions.jl")
+include("orthogonality.jl")
 include("restricted_bases.jl")
 include("types.jl")
 include("unit_vectors.jl")
@@ -77,6 +78,8 @@ include("bspline_derivatives.jl")
 include("inner_products.jl")
 include("densities.jl")
 include("linear_operators.jl")
+
+include("basis_transforms.jl")
 
 
 """

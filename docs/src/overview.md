@@ -74,6 +74,9 @@ julia> S = B'B
   ⋅    ⋅    ⋅    ⋅    ⋅    ⋅    ⋅   0.1   ⋅    ⋅
   ⋅    ⋅    ⋅    ⋅    ⋅    ⋅    ⋅    ⋅   0.1   ⋅
   ⋅    ⋅    ⋅    ⋅    ⋅    ⋅    ⋅    ⋅    ⋅   0.1
+
+julia> orthogonality(B)
+CompactBases.Orthogonal()
 ```
 
 In contrast, a non-orthogonal basis such as B-splines has a _banded_
@@ -111,6 +114,9 @@ julia> S = B'B
   ⋅            ⋅           9.79816e-7  0.00036737   0.0100953    0.0349662    0.0464947   0.0246054    0.00347002
   ⋅            ⋅            ⋅          1.65344e-6   0.000811839  0.00747795   0.0246054   0.0331746    0.0139286
   ⋅            ⋅            ⋅           ⋅           1.32275e-5   0.000365961  0.00347002  0.0139286    0.0222222
+
+julia> orthogonality(B)
+CompactBases.NonOrthogonal()
 ```
 
 where the bandwidth depends on the B-spline order.

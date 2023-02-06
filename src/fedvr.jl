@@ -72,6 +72,7 @@ assert_compatible_bases(A::FEDVROrRestricted, B::FEDVROrRestricted) =
     parent(A) == parent(B) ||
         throw(ArgumentError("Can only multiply FEDVRs of the same order and sharing the same nodes"))
 
+orthogonality( ::FEDVROrRestricted) = Orthonormal()
 distribution(B::FEDVR) = distribution(B.t)
 
 order(B::FEDVR) = B.order

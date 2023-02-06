@@ -65,6 +65,8 @@ IntervalSets.leftendpoint(B::RestrictedQuasiArray) =
 IntervalSets.rightendpoint(B::RestrictedQuasiArray) =
     rightendpoint(parent(B))
 
+orthogonality(::BasisOrRestricted) = NonOrthogonal()
+
 # TODO: This is invalid for non-orthogonal bases such as B-splines,
 # since it selects as many quadrature nodes as there are basis
 # functions in the restriction. Each B-spline is actually associated

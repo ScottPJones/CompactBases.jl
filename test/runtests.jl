@@ -39,4 +39,6 @@ include("derivative_accuracy_utils.jl")
     include("inner_products.jl")
     include("densities.jl")
     include("linear_operators.jl")
+    include("orthogonality.jl")
+    include("basis_transforms.jl")
 end

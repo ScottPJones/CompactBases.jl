@@ -269,6 +269,75 @@ function diagonal_operators()
     savedocfig("diagonal_operators")
 end
 
+function basis_transforms()
+    function compare_bases(x, bases, functions)
+        m = length(bases)
+        n = length(functions)
+
+        cs = [B \ f.(axes(B,1))
+              for B in bases, f in functions]
+        es = extrema.(cs)
+        ymins = [minimum(first.(es[i,:])) for i = 1:m]
+        ymaxs = [maximum(last.(es[i,:])) for i = 1:m]
+
+        cfigure("basis comparison", figsize=(10,16)) do
+            for i = 1:m
+                B = bases[i]
+                a = axes(B,1)
+                χ = B[x,:]
+                xl = [mean_position(x, view(χ, :, j)) for j in 1:size(B,2)]
+                csubplot(m,n+1,(i,1), nox=i<m) do
+                    plot(x, χ)
+                    i == m && xlabel(L"x")
+                    reltext(0.1, 0.8, string('A'+i-1))
+                end
+                for j = 1:n
+                    f = functions[j]
+                    c = cs[i,j]
+                    csubplot(2m,n+1,(2i-1,j+1), nox=true, noy=j<n) do
+                        plot(x, χ*c)
+                        plot(x, f.(x), "k--")
+                        margins(0,0.1)
+                        ylim(-0.2,1.25)
+                        axes_labels_opposite(:y)
+                        i == m && xlabel(L"x")
+                    end
+                    csubplot(2m,n+1,(2i,j+1), nox=i<m, noy=j<n) do
+                        plot(xl, c, ".-")
+                        for i′ = 1:m
+                            i′ == i && continue
+                            A = bases[i′]
+                            d = basis_transform(B, A, cs[i′,j])
+                            plot(xl, d, ".--", label=string('A'+i′-1))
+                        end
+                        xlim(x[1],x[end])
+                        dy = (ymaxs[i]-ymins[i])
+                        ylim(ymins[i]-0.1dy, ymaxs[i]+0.1dy)
+                        legend(loc=2)
+                        axes_labels_opposite(:y)
+                        i == m && xlabel(L"x")
+                    end
+                end
+            end
+        end
+    end
+
+    A = BSpline(LinearKnotSet(7, 0, 2, 11))
+    B = FEDVR(range(0.0, 2.5, 5), 6)[:,2:end-1]
+    C = StaggeredFiniteDifferences(0.03, 0.3, 0.01, 3.0)
+    D = FiniteDifferences(range(0.25,1.75,length=31))
+    E = BSpline(LinearKnotSet(9, -1, 3, 15))[:,2:end]
+
+    gauss = x -> exp(-(x-1.0).^2/(2*0.2^2))
+    u = x -> (0.5 < x < 1.5)*one(x)
+
+    x = range(-1.5, stop=3.5, length=1001)
+
+    compare_bases(x, (A,B,C,D,E), (gauss,u))
+
+    savedocfig("basis_transforms")
+end
+
 macro echo(expr)
     println(expr)
     :(@time $expr)
@@ -285,3 +354,4 @@ include("bspline_plots.jl")
 include("fd_plots.jl")
 @echo densities()
 @echo diagonal_operators()
+@echo basis_transforms()

@@ -127,7 +127,9 @@ Base.hash(B::BSpline, h::UInt) = hash(B.t, h)
 
 distribution(B::BSpline) = distribution(B.t)
 
-order(B::BSplineOrRestricted) = order(unrestricted_basis(B).t)
+knotset(B::BSpline) = B.t
+knotset(B::RestrictedBSpline) = knotset(unrestricted_basis(B))
+order(B::BSplineOrRestricted) = order(knotset(B))
 
 function show(io::IO, B::BSpline{T}) where T
     write(io, "BSpline{$(T)} basis with $(B.t)")
