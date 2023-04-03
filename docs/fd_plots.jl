@@ -64,9 +64,9 @@ function fd_compare_staggered_non_uniform()
 
     cfigure("staggered non_uniform reconstruction") do
         csubplot(211,nox=true) do
-            l = plot(x1, c1, ".:", label="Uniform coeffs")[1]
+            l = first(plot(x1, c1, ".:", label="Uniform coeffs"))
             plot(ξ, f1, color=l.get_color(), label="Uniform reconstruction")
-            l = plot(x2, c2, ".:", label="Non-uniform coeffs")[1]
+            l = first(plot(x2, c2, ".:", label="Non-uniform coeffs"))
             plot(ξ, f2, "--", color=l.get_color(), label="Non-uniform reconstruction")
             plot(ξ, fe, ":", label="Exact")
             xscale("log")

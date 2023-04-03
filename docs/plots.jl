@@ -1,8 +1,7 @@
-using PyPlot
+using PythonPlot
 using Jagot.plotting
 plot_style("ggplot")
-using PyPlotRecipes
-using PyCall
+using PythonCall
 PathEffects = pyimport("matplotlib.patheffects")
 using Statistics
 using Random
@@ -20,6 +19,8 @@ function mean_color(color::String)
     mean([c.r,c.g,c.b])
 end
 
+mean_color(color::Py) = mean_color(pyconvert(String, color))
+
 lerp(a,b,t) = (1-t)*a + t*b
 
 mean_position(x, ϕ) = ϕ'*Diagonal(x)*ϕ/(ϕ'ϕ)
@@ -30,7 +31,7 @@ function savedocfig(name,dir="figures")
     savefig(filename,
             transparent=true,
             facecolor=fig.get_facecolor())
-    close(fig)
+    PythonPlot.close("all")
     if isfile(filename)
         println("Saved $(name) to $(filename)")
     else
@@ -49,7 +50,7 @@ function logo()
         margins(0.1, 0.1)
         axis("off")
     end
-    savefig("docs/src/assets/logo.svg", transparent=true)
+    savedocfig("logo", "assets")
 end
 
 function simple_example()
@@ -163,7 +164,7 @@ function densities()
             for ϕ in ϕ
                 loglog(rr, abs.(ϕ-h.(rr)))
             end
-            yl = ylim()
+            yl = pyconvert(Tuple, ylim())
             ylim(max(yl[1],1e-15), yl[2])
             legend(["Finite-differences",
                     "Log–linear finite-differences",

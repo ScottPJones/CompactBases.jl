@@ -23,7 +23,7 @@ function bsplines_cardinal_splines()
             csubplot(5,1,k,nox=k<5) do
                 for j = 1:size(χ,2)
                     ϕ = view(χ, :, j)
-                    l=plot(x, ϕ)[1]
+                    l=first(plot(x, ϕ))
                     Bspline_text(x, ϕ, j, k, l.get_color())
                 end
                 ylabel(latexstring("k = $k"))
@@ -68,7 +68,7 @@ function bsplines_full_multiplicity_splines()
             csubplot(5,1,k,nox=k<5) do
                 for j = 1:size(χ,2)
                     ϕ = view(χ, :, j)
-                    l=plot(x, ϕ)[1]
+                    l=first(plot(x, ϕ))
                     Bspline_text(x, ϕ, j, k, l.get_color())
                 end
                 ylabel(latexstring("k = $k"))
@@ -101,7 +101,7 @@ function bsplines_spline1d()
         csubplot(312, nox=true) do
             for j = 1:size(χ,2)
                 ϕ = view(χ, :, j)
-                l=plot(x, ϕ)[1]
+                l=first(plot(x, ϕ))
                 Bspline_text(x, ϕ, j, k, l.get_color())
             end
             margins(0.1,0.1)
@@ -223,15 +223,15 @@ function bsplines_restricted_basis_interpolation()
     yl = nothing
     cfigure("restricted basis interpolation", figsize=(7,9)) do
         csubplot(321, nox=true) do
-            l=plot(x, χ*c1)[1]
+            l=first(plot(x, χ*c1))
             plot(x_avg, c1, "s:", color=l.get_color())
-            l=plot(x, χ*c2)[1]
+            l=first(plot(x, χ*c2))
             plot(x_avg, c2, "s:", color=l.get_color())
         end
         csubplot(322, nox=true) do
-            l=plot(x, χ̃*c̃1)[1]
+            l=first(plot(x, χ̃*c̃1))
             plot(x̃_avg, c̃1, "s:", color=l.get_color())
-            l=plot(x, χ̃*c̃2)[1]
+            l=first(plot(x, χ̃*c̃2))
             plot(x̃_avg, c̃2, "s:", color=l.get_color())
             axes_labels_opposite(:y)
         end
@@ -377,12 +377,12 @@ function bsplines_sine_derivative()
 
     cfigure("derivatives", figsize=(7,9)) do
         csubplot(411,nox=true) do
-            l=plot(x, χ*cf, label=L"\tilde{f}(x)")[1]
+            l=first(plot(x, χ*cf, label=L"\tilde{f}(x)"))
             plot(x, f.(x), ":", label=L"f(x)")
             legend(framealpha=0.75)
         end
         csubplot(412,nox=true) do
-            l=plot(x, (χ*cg), label=L"\tilde{g}(x)")[1]
+            l=first(plot(x, (χ*cg), label=L"\tilde{g}(x)"))
             plot(x, g.(x), ":", label=L"g(x)")
             legend(framealpha=0.75)
         end
@@ -426,14 +426,14 @@ function bsplines_ode_hookes_law(xₘₐₓ, kspring, k, N)
 
     cfigure("Hooke's law",figsize=(7,9)) do
         csubplot(411,nox=true) do
-            l=plot(x, χ*cF, label=L"\tilde{F}(x)")[1]
+            l=first(plot(x, χ*cF, label=L"\tilde{F}(x)"))
             plot(-x, -χ*cF, "--", color=l.get_color())
             plot(x_avg, cF, ".:", color=l.get_color(), label=L"c_F")
             plot(x, F.(x), ":", label=L"F(x)")
             legend(framealpha=0.75)
         end
         csubplot(412,nox=true) do
-            l=plot(x, χ*cV, label=L"\tilde{V}(x)")[1]
+            l=first(plot(x, χ*cV, label=L"\tilde{V}(x)"))
             plot(-x, χ*cV, "--", color=l.get_color())
             plot(x_avg, cV, ".:", color=l.get_color(), label=L"c_V")
             plot(x, V.(x), ":", label=L"V(x)")
@@ -441,13 +441,13 @@ function bsplines_ode_hookes_law(xₘₐₓ, kspring, k, N)
         end
         csubplot(413,nox=true) do
             plot(x, χ*cV - V.(x))
-            xl = xlim()
+            xl = pyconvert(Tuple, xlim())
             xlim(-xl[2],xl[2])
             ylabel("Error")
         end
         csubplot(414) do
             plot(x, χ)
-            xl = xlim()
+            xl = pyconvert(Tuple, xlim())
             xlim(-xl[2],xl[2])
             xlabel(L"x")
         end

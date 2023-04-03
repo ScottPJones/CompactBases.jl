@@ -10,3 +10,4 @@ ltximg
 /docs/src/figures
 /docs/src/assets/logo.svg
 Manifest.toml
+.CondaPkg/
