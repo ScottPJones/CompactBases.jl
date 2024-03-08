@@ -44,7 +44,7 @@ using BlockBandedMatrices
 
 using FastGaussQuadrature
 
-using Formatting
+using Format
 using RecipesBase
 
 vandermonde(B::Basis) = B[locs(B),:]
